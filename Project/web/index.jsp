@@ -20,12 +20,14 @@
     <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
         <a class="navbar-brand" href="#">Today</a>
         <a class="navbar-brand" href="#" onclick="issueEnrollBtn()">New Today</a>
-        <a class="navbar-brand" href="#" onclick="logoutBtn()">Logout</a>
+        <a class="navbar-brand" href="#" id="loginBtn">Login</a>
         <form class="form-inline" style="float: right">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </nav>
+
+    <div id="userArea"></div>
 
     <div class="container">
         <div class="col align-self-center">
@@ -76,3 +78,11 @@
 <script type="text/javascript" src="public/js/sideCategory.js"></script>
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+    var loginBtn = document.getElementById('loginBtn');
+    loginBtn.onclick = function () {
+        location.href = "login.jsp";
+    }
+
+</script>
