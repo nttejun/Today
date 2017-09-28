@@ -75,14 +75,6 @@
 </body>
 </html>
 
-<script type="text/javascript" src="public/js/sideCategory.js"></script>
+<script type="text/javascript" src="public/js/login.js"></script>
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-
-    var loginBtn = document.getElementById('loginBtn');
-    loginBtn.onclick = function () {
-        location.href = "login.jsp";
-    }
-
-</script>

@@ -1,3 +1,5 @@
+package today;
+
 import com.sun.javafx.binding.StringFormatter;
 
 /**
@@ -12,16 +14,16 @@ public class UserDO {
         return userId;
     }
 
-    public void setUserId(){
-        this.userId = userId;
+    public void setUserId(String userId){
+        this.userId = this.userId;
     }
 
     public String getUserPassword(){
         return userPassword;
     }
 
-    public void setUserPassword(){
-        this.userPassword = userPassword;
+    public void setUserPassword(String userPassword){
+        this.userPassword = this.userPassword;
     }
 
 }

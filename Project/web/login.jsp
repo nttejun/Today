@@ -18,7 +18,7 @@
 <body>
 
 <section class="main">
-    <form method = "post" action = "/login">
+    <form method = "post" action = "ServletLogin">
         <div class="form-group col-6 col-md-4">
             <input type="text" class="form-control" name="userId" aria-describedby="emailHelp" placeholder="user id">
             <input type="password" class="form-control" name="userPassword" placeholder="user passowrd">
@@ -36,7 +36,6 @@
 </body>
 </html>
 
-<script src="public/js/login.js"></script>
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
