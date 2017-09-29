@@ -1,5 +1,6 @@
 package today;
 
+import javax.jms.Session;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -8,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -21,22 +23,19 @@ import java.sql.SQLException;
 public class ServletLogin extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
 
-        String userId = request.getParameter("userId");
-        String userPassword = request.getParameter("userPassword");
+        response.setContentType("text/html;charset=UTF-8");
 
         JDBCconnect jdbCconnect = new JDBCconnect();
 
-        jdbCconnect.checkLogin(userId, userPassword);
-
-
-        UserDO userDO = new UserDO();
+        String loginName = jdbCconnect.checkLogin(request.getParameter("userId"), request.getParameter("userPassword"));
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
 
-        if (userDO.getUserId() != null) {
+        if (loginName != null) {
 
+            session.setAttribute("userLoginStatus", loginName);
             requestDispatcher.forward(request, response);
 
         } else {

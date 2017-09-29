@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -20,7 +21,17 @@
     <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
         <a class="navbar-brand" href="#">Today</a>
         <a class="navbar-brand" href="#" onclick="issueEnrollBtn()">New Today</a>
-        <a class="navbar-brand" href="#" id="loginBtn">Login</a>
+        <c:choose>
+            <c:when test="${sessionScope.userLoginStatus == null}">
+                <a class="navbar-brand" href="#" id="loginBtn">Login</a>
+            </c:when>
+            <c:otherwise>
+                <form action="ServletLogout" method="post">
+                    <button type="submit" class="navbar-brand" href="#">Logout</button>
+                    ${sessionScope.userLoginStatus} 님 접속 On
+                </form>
+            </c:otherwise>
+        </c:choose>
         <form class="form-inline" style="float: right">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

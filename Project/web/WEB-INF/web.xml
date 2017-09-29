@@ -19,4 +19,24 @@
         <servlet-name>ServletLogin</servlet-name>
         <url-pattern>/ServletLogin</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ServletLogout</servlet-name>
+        <servlet-class>today.ServletLogout</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ServletLogout</servlet-name>
+        <url-pattern>/ServletLogout</url-pattern>
+    </servlet-mapping>
+    <!--
+
+    <jsp-config>
+        <taglib>
+            <taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
+            <taglib-location>/index.jsp</taglib-location>
+        </taglib>
+    </jsp-config>
+-->
+
 </web-app>

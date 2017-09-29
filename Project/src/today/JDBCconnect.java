@@ -1,5 +1,7 @@
 package today;
 
+import javax.jms.Session;
+import javax.servlet.http.HttpSession;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -8,7 +10,9 @@ import java.util.Properties;
  * Created by nttej on 2017-09-21.
  */
 public class JDBCconnect {
-    public void checkLogin(String userId, String userPassword) {
+    public String checkLogin(String userId, String userPassword) {
+
+        String loginName = null;
 
         try {
 
@@ -16,7 +20,7 @@ public class JDBCconnect {
 
             java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/Today", "root", "1234");
 
-            String sql = "SELECT userId, userPassword FROM Today.User WHERE userId = ? AND userPassword = ? ";
+            String sql = "SELECT userId, userPassword, userName FROM Today.User WHERE userId = ? AND userPassword = ? ";
 
             PreparedStatement preparedStatement = null;
 
@@ -30,14 +34,14 @@ public class JDBCconnect {
 
             resultSet = preparedStatement.executeQuery();
 
-            UserDO userDO = new UserDO();
+            if (resultSet.next()) {
 
-            while (resultSet.next()) {
-
-                userDO.setUserId(resultSet.getString("userId"));
-                userDO.setUserPassword(resultSet.getString("userPassword"));
+                loginName = resultSet.getString("userName");
 
             }
+
+            resultSet.close();
+            preparedStatement.close();
 
             if (!con.isClosed())
 
@@ -56,6 +60,9 @@ public class JDBCconnect {
             e.printStackTrace();
 
         }
+
+        return loginName;
+
     }
 }
 

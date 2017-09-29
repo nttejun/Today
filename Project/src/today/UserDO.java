@@ -9,6 +9,7 @@ public class UserDO {
 
     private String userId;
     private String userPassword;
+    private String userName;
 
     public String getUserId(){
         return userId;
@@ -25,5 +26,9 @@ public class UserDO {
     public void setUserPassword(String userPassword){
         this.userPassword = this.userPassword;
     }
+
+    public String getUserName(){ return userName; }
+
+    public void setUserName(String userName){ this.userName = this.userName; }
 
 }
