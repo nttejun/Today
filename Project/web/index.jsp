@@ -62,8 +62,6 @@
                             </a>
                         </li>
                         <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
                         <li class="page-item">
                             <a class="page-link" href="#" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
@@ -85,7 +83,7 @@
 <script type="text/javascript" src="public/js/login.js"></script>
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 <script type="text/javascript">
 
     var todayReset = function todayReset() {
@@ -102,19 +100,22 @@
 
                     var issueList = JSON.parse(result);
 
-                    console.log(issueList.data[0]);
+                    for (var index = 0; (issueList.data).length > index; index++) {
 
                     var view = "";
 
-                    for (var index = 0; (issueList.data).length > index; index++) {
-
-                        view += "<a href='#' class='list-group-item list-group-item-action col-12 col-md-8'>";
+                        view += "<a href='#' class='list-group-item list-group-item-action col-12 col-md-8' data-id='"+index+"' id='"+issueList.seq[index]+"'>";
                         view += issueList.data[index]
                         view += "</a>";
+                        view += "<div class='page-header' data-id='"+index+"' style='display: none'>"
+                        view += "<h3>Example page header <small>"
+                        view += 'Subtext for header'
+                        view += "</small></h3></div>"
+
+                        $('#userArea').append(view);
 
                     };
 
-                    $('#userArea').append(view);
 
                 }, error: function (error) {
 
@@ -124,6 +125,16 @@
             }
         );
     }
+
+    $("#userArea a").live("click", function(){
+
+        var indexNumber = ($(this).attr('data-id'));
+
+        $("div[data-id='"+indexNumber+"']").css("display", "");
+
+
+    });
+
 
     var issueEnrollBtn = function issueEnrollBtn() {
 

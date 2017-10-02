@@ -99,6 +99,8 @@ public class JDBCconnect {
 
         List<String> data = new ArrayList<>();
 
+        List<String> seq = new ArrayList<>();
+
         HashMap<String, List<String>> hashMap = new HashMap<>();
 
         JSONObject jsonObject = new JSONObject();
@@ -112,12 +114,15 @@ public class JDBCconnect {
 
             while (resultSet.next()) {
 
+                seq.add(Integer.toString(resultSet.getInt("seq")));
                 data.add(resultSet.getString("title"));
 
             }
 
+            hashMap.put("seq", seq);
             hashMap.put("data", data);
 
+            System.out.println(hashMap);
             jsonObject.putAll(hashMap);
 
         } catch (SQLException e) {
