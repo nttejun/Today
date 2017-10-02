@@ -130,8 +130,14 @@
 
         var indexNumber = ($(this).attr('data-id'));
 
-        $("div[data-id='"+indexNumber+"']").css("display", "");
+        if ( $("div[data-id='"+indexNumber+"']").css("display") == "none") {
 
+            $("div[data-id='" + indexNumber + "']").css("display", "");
+
+        } else {
+
+            $("div[data-id='" + indexNumber + "']").css("display", "none");
+        }
 
     });
 
