@@ -101,6 +101,8 @@ public class JDBCconnect {
 
         List<String> seq = new ArrayList<>();
 
+        List<String> contents = new ArrayList<>();
+
         HashMap<String, List<String>> hashMap = new HashMap<>();
 
         JSONObject jsonObject = new JSONObject();
@@ -116,11 +118,13 @@ public class JDBCconnect {
 
                 seq.add(Integer.toString(resultSet.getInt("seq")));
                 data.add(resultSet.getString("title"));
+                contents.add(resultSet.getString("contents"));
 
             }
 
             hashMap.put("seq", seq);
             hashMap.put("data", data);
+            hashMap.put("contents", contents);
 
             System.out.println(hashMap);
             jsonObject.putAll(hashMap);
@@ -132,6 +136,44 @@ public class JDBCconnect {
         }
 
         return jsonObject;
+
+    }
+
+    public void issueEnroll(String title, String contents) {
+
+        try {
+
+            Connection connection = jdbc();
+
+            String sql = "insert into board values(seq.nextval, ?, ?)";
+
+            PreparedStatement preparedStatement = null;
+
+            preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, title);
+
+            preparedStatement.setString(2, contents);
+
+            ResultSet resultSet = null;
+
+            resultSet = preparedStatement.executeQuery();
+
+            resultSet.close();
+
+            preparedStatement.close();
+
+            if (!connection.isClosed())
+
+                System.out.println("Successfully connected to " + "MySQL server using TCP/IP...");
+
+            connection.close();
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+
+        }
 
     }
 
