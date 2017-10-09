@@ -141,13 +141,15 @@ public class JDBCconnect {
 
     public void issueEnroll(String title, String contents) {
 
+
+        Connection connection = jdbc();
+
+        String sql = "INSERT INTO board(title, contents)";
+        sql = sql + "values(?, ?)";
+
+        PreparedStatement preparedStatement = null;
+
         try {
-
-            Connection connection = jdbc();
-
-            String sql = "insert into board values(seq.nextval, ?, ?)";
-
-            PreparedStatement preparedStatement = null;
 
             preparedStatement = connection.prepareStatement(sql);
 
@@ -155,11 +157,7 @@ public class JDBCconnect {
 
             preparedStatement.setString(2, contents);
 
-            ResultSet resultSet = null;
-
-            resultSet = preparedStatement.executeQuery();
-
-            resultSet.close();
+            preparedStatement.executeUpdate();
 
             preparedStatement.close();
 

@@ -20,14 +20,14 @@
 
     <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
         <a class="navbar-brand" onclick="todayReset()" href="#">Today</a>
-        <a class="navbar-brand" onclick="issueEnrollBtn()" href="#">NEW ISSUE</a>
+        <a class="navbar-brand" href="#" id="modal" data-toggle="modal" data-target="#exampleModal">NEW ISSUE</a>
         <c:choose>
             <c:when test="${sessionScope.userLoginStatus == null}">
                 <a class="navbar-brand" href="#" id="loginBtn">Login</a>
             </c:when>
             <c:otherwise>
                 <form action="ServletLogout" method="post">
-                    <button type="submit" class="navbar-brand" href="#">Logout</button>
+                    <a type="submit" class="navbar-brand" href="#">Logout</a>
                         ${sessionScope.userLoginStatus} 님 접속 On
                 </form>
             </c:otherwise>
@@ -77,6 +77,32 @@
 
 </section>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p><input type="text" id="titleEnroll" placeholder="ISSUE 주제"></p>
+                <p><input type="text" id="contentsEnroll" placeholder="ISSUE 내용"></p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="issueEnrollBtn()" class="btn btn-primary" data-dismiss="modal">Issue
+                        Enroll
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
 
@@ -102,20 +128,19 @@
 
                     for (var index = 0; (issueList.data).length > index; index++) {
 
-                    var view = "";
+                        var view = "";
 
-                        view += "<a href='#' class='list-group-item list-group-item-action col-12 col-md-8' data-id='"+index+"' id='"+issueList.seq[index]+"'>";
+                        view += "<a href='#' class='list-group-item list-group-item-action col-12 col-md-8' data-id='" + index + "' id='" + issueList.seq[index] + "'>";
                         view += issueList.data[index]
-                        view += "</a>";
-                        view += "<div class='page-header' data-id='"+index+"' style='display: none'>"
-                        view += "<h3>Example page header <small>"
-                        view += 'Subtext for header'
-                        view += "</small></h3></div>"
+                        view += "</a>"
+                        view += "<div class='page-header' data-id='" + index + "' style='display: none'>"
+                        view += "<h3>" + issueList.contents[index]
+                        view += "<small>  Proceed with the discussion </small>"
+                        view += "</h3></div>"
 
                         $('#userArea').append(view);
 
                     };
-
 
                 }, error: function (error) {
 
@@ -126,11 +151,11 @@
         );
     }
 
-    $("#userArea a").live("click", function(){
+    $("#userArea a").live("click", function () {
 
         var indexNumber = ($(this).attr('data-id'));
 
-        if ( $("div[data-id='"+indexNumber+"']").css("display") == "none") {
+        if ($("div[data-id='" + indexNumber + "']").css("display") == "none") {
 
             $("div[data-id='" + indexNumber + "']").css("display", "");
 
@@ -142,7 +167,34 @@
     });
 
 
+    $('a[id=modal]').on('click', function () {
+
+        $("div.modal").modal();
+
+    })
+
+
     var issueEnrollBtn = function issueEnrollBtn() {
+
+        var title = $("#titleEnroll").val();
+        var contents = $("#contentsEnroll").val();
+
+        var enrollData = {"title": title, "contents": contents};
+
+        console.log(contents);
+
+        var json;
+        $.ajax({
+            method: 'GET',
+            data: enrollData,
+            url: 'IssueEnrollServlet',
+            success: function (result) {
+                console.log("success");
+            }, error: function (error) {
+                alert("지금은 등록할 수 없습니다");
+            }
+
+        })
 
     }
 

@@ -39,4 +39,14 @@
         <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/IndexServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>IssueEnrollServlet</servlet-name>
+        <servlet-class>today.IssueEnrollServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>IssueEnrollServlet</servlet-name>
+        <url-pattern>/IssueEnrollServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
